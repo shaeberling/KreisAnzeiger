@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Kreis Anzeiger</string>
+    <string name="getting_issue">Ausgabe laden…</string> 
+    <string name="downloading_issue">Ausgabe wird geladen…</string>
+    <string name="done_opening">Fertig, öffne Ausgabe…</string>
+    <string name="error">Konnte die Ausgabe nicht laden.</string>
+    <string name="kreis_anzeiger">Kreis-Anzeiger</string>
+    <string name="download">Herunterladen</string>
+    <string name="open_width">Öffne Kreis-Anzeiger mit…</string>
+    <string name="settings">Einstellungen</string>
+    <string name="accountInfo">Kontoinformationen</string>
+    <string name="emailUsername">E-Mail / Benutzername</string>
+    <string name="emailUsernameDescription">Die E-Mail Adresse oder Benutzername Ihres Kreis-Anzeiger Kontos.</string>
+    <string name="password">Passwort</string>
+    <string name="passwordDescription">Das Passwort Ihres Kreis-Anzeiger Kontos.</string>
+    <string name="loginInformationMissing">Benutzername und Passwort müssen erst gesetzt werden.</string>
+    
+    <string name="account_username_key">account_username</string>
+    <string name="account_password_key">account_password</string>
+</resources>

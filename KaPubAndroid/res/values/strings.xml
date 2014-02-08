@@ -2,13 +2,13 @@
 <resources>
 
     <string name="app_name">Kreis Anzeiger</string>
-    <string name="getting_issue">Getting issue ...</string>
-    <string name="downloading_issue">Downloading issue ...</string>
-    <string name="done_opening">Done, opening ...</string>
+    <string name="getting_issue">Getting issue…</string>
+    <string name="downloading_issue">Downloading issue…</string>
+    <string name="done_opening">Done, opening…</string>
     <string name="error">Could not download issue.</string>
     <string name="kreis_anzeiger">Kreis-Anzeiger</string>
     <string name="download">Download</string>
-    <string name="open_width">"Open Kreis-Anzeiger with ..."</string>
+    <string name="open_width">"Open Kreis-Anzeiger with…"</string>
     <string name="settings">Settings</string>
     <string name="accountInfo">Account Information</string>
     <string name="emailUsername">E-Mail / Username</string>
