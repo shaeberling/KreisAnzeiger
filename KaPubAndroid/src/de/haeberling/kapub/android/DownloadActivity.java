@@ -169,7 +169,6 @@ public class DownloadActivity extends Activity {
     final SharedPreferences sharedPref = PreferenceManager
         .getDefaultSharedPreferences(this);
 
-    cancelDownload = false;
     setContentView(R.layout.activity_download);
     getActionBar().hide();
 
@@ -209,6 +208,12 @@ public class DownloadActivity extends Activity {
         downloadTask.execute((Void) null);
       }
     });
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    cancelDownload = false;
   }
 
   @Override
