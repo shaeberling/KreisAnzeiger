@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Sascha HŠberling
+ * Copyright 2011 Sascha Hï¿½berling
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -63,6 +63,7 @@ public class DownloadActivity extends Activity {
   private class DownloadTask extends AsyncTask<Void, Integer, File> {
     @Override
     protected File doInBackground(Void... params) {
+      File issueFile = null;
       try {
         Issue issue = kaPubTools.getLatestIssue(getFilesDir());
         if (issue == null) {
@@ -73,24 +74,51 @@ public class DownloadActivity extends Activity {
         Data data = issue.getData();
 
         publishProgress(1);
-        File extPath = getExternalFilesDir(null);
+        File extPath = new File(getExternalFilesDir(null) + File.separator
+            + "issues");
         Log.d(TAG, "External Path: " + extPath);
 
-        File tempFile = new File(getExternalFilesDir(null),
-            "Kreis-Anzeiger.pdf");
-        if (writeToFile(data.stream, tempFile, new Callback<Integer>() {
+        // Create path if it doesn't exist yet.
+        if (!extPath.exists()) {
+          extPath.mkdirs();
+        }
 
+        // Create a unique file name.
+        issueFile = new File(extPath, "Kreis-Anzeiger-" + issue.getFileName()
+            + ".pdf");
+
+        // If this file already exists, it means we have downloaded it already.
+        // In this case, no need to download again.
+        if (issueFile.exists()) {
+          return issueFile;
+        }
+
+        // If the current issue does not exist, delete all previous ones and
+        // download the new one.
+        File[] oldIssues = extPath.listFiles();
+        if (oldIssues != null) {
+          for (File oldIssue : oldIssues) {
+            Log.i(TAG, "Deleting old issue: " + oldIssue);
+            oldIssue.delete();
+          }
+        }
+        Log.i(TAG, "Downloading into new file: " + issueFile);
+        if (writeToFile(data.stream, issueFile, new Callback<Integer>() {
           @Override
           public void onCallback(Integer downloadedBytes) {
             publishProgress(downloadedBytes);
           }
         })) {
-          return tempFile;
-        } else {
-          return null;
+          return issueFile;
         }
       } catch (IOException e) {
         Log.e(TAG, e.getMessage(), e);
+      }
+
+      // If downloading failed, make sure to delete the issue file so that it's
+      // not preventing us from downloading this again.
+      if (issueFile != null) {
+        issueFile.delete();
       }
       return null;
     }
