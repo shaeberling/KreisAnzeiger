@@ -13,4 +13,8 @@ Libraries and apps for fetching the local newspaper 'Kreis-Anzeiger'
     authenticates with the server, fetches the PDF and opens it in a PDF
     viewer on the device.
 
+* KaPubAndroidGlueLib
+    This is an empty Android library project which serves as glue between
+    the pure Java KaPubServer project and the KaPubAndroid project.
+
 -- Sascha
