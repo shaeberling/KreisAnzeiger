@@ -23,6 +23,8 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -90,10 +92,33 @@ public class KaPubTools {
       return null;
     }
 
+    // We hash the URL to create a unique filename for the PDF and to avoid
+    // re-downloading the same issue repeatedly, even though we already have it
+    // on the device.
+    String hashedUrl = hashUrl(pdfLink);
+    log.info("Hashed URL: " + hashedUrl);
+
     // This will contain the information we need to retrieve the issue.
-    Issue issue = new Issue(String.valueOf(System.currentTimeMillis()));
+    Issue issue = new Issue(hashedUrl);
     createStreamForUrl(issue, pdfLink, cookieData);
     return issue;
+  }
+
+  private static String hashUrl(String url) {
+    MessageDigest digest;
+    try {
+      digest = MessageDigest.getInstance("MD5");
+    } catch (NoSuchAlgorithmException e) {
+      log.log(Level.SEVERE, "Could not hash the pdf link.", e);
+      return "no-hash-available";
+    }
+    byte[] hashedBytes = digest.digest(url.getBytes());
+
+    StringBuilder hash = new StringBuilder();
+    for (byte b : hashedBytes) {
+      hash.append(Integer.toHexString(b & 0xFF));
+    }
+    return hash.toString();
   }
 
   /**

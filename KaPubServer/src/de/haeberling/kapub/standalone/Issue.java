@@ -36,15 +36,18 @@ public class Issue {
     public Data getData();
   }
 
-  private final String fileName;
+  /** A unique ID for this issue. */
+  private final String issueId;
+
+  /** Provides the data for this issue. */
   private DataProvider dataProvider;
 
-  public Issue(String fileName) {
-    this.fileName = fileName;
+  public Issue(String issueId) {
+    this.issueId = issueId;
   }
 
   public String getFileName() {
-    return this.fileName;
+    return this.issueId;
   }
 
   public void setDataProvider(DataProvider dataProvider) {
