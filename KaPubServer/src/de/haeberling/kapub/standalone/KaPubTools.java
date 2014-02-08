@@ -194,6 +194,7 @@ public class KaPubTools {
           urlConn.connect();
 
           String contentLengthStr = urlConn.getHeaderField("Content-Length");
+          log.log(Level.INFO, "Content-length: " + contentLengthStr);
           int contentLength = contentLengthStr != null ? Integer
               .parseInt(contentLengthStr) : 0;
           return new Data(urlConn.getInputStream(), contentLength);
