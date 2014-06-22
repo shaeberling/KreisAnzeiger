@@ -239,14 +239,15 @@ public class KaPubTools {
     // We have to search for the download link. The best way right now is to
     // search for the contents and end of the link, and then search backwards
     // the beginning of it. From there we just find the href, and we're done.
-    final String DOWNLOAD_LINK_START = "<a href=\"pdf.php";
+	  final String DOWNLOAD_LINK_START = "<a href=\"http://www.kreis-anzeiger.de/epaper/pdf.php";
 
     int linkStart = html.indexOf(DOWNLOAD_LINK_START) + 9;
     int linkEnd = html.indexOf("\" ", linkStart);
 
     final String href = html.substring(linkStart, linkEnd);
 
-    return Config.NAV_URL_HOST + '/' + href;
+    // No need to prepend host right now, the site has changes to an absolute link
+    return href;
   }
 
   /**
